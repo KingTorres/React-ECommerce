@@ -53,24 +53,23 @@ const ItemList = () => {
     <>
     {error ? <div>{error}</div>: loading ? <div>Loading....</div> :
     <>
-    <div>
-        <div className='text-[#000000] rounded-2xl p-2 px-4 bg-[#afafaf] sticky top-0 flex justify-between'>
-            <button onClick={() => setCategory('')}>All</button>
-            <button onClick={() => setCategory('beauty')}>Beauty</button>
-            <button onClick={() => setCategory('fragrances')}>Fragrances</button>
-            <button onClick={() => setCategory('furniture')}>Furniture</button>
-            <button onClick={() => setCategory('groceries')}>Groceries</button>
+    <div className='flex flex-col items-center align-center'>
+        <div className='drop-shadow-sm w-[100%] text-[#000000] py-2 px-4 bg-[#ffffff] sticky top-0 flex justify-between'>
+            <button className={`${category === '' ? 'active' : '' } flex justify-center p-1 min-w-[3rem]`} onClick={() => setCategory('')}>All</button>
+            <button className={`${category === 'beauty' ? 'active' : '' } flex justify-center w-[100%] p-1 px-2`} onClick={() => setCategory('beauty')}>Beauty</button>
+            <button className={`${category === 'fragrances' ? 'active' : '' } flex justify-center w-[100%] p-1 px-2`} onClick={() => setCategory('fragrances')}>Fragrances</button>
+            <button className={`${category === 'furniture' ? 'active' : '' } flex justify-center w-[100%] p-1 px-2`} onClick={() => setCategory('furniture')}>Furniture</button>
+            <button className={`${category === 'groceries' ? 'active' : '' } flex justify-center w-[100%] p-1 px-2`} onClick={() => setCategory('groceries')}>Groceries</button>
         </div>
-        <div className='text-[#000000] p-2 grid grid-cols-2 gap-3 md:grid-cols-3'>
+        <div className='text-[#000000] p-[2vw] py-[2vh] grid grid-cols-2 gap-3 md:grid-cols-3'>
             {allItems && allItems.map((item) => (
-                <div className='p-2 pt-1 rounded-xl bg-[#d3d3d3]' key={item.id}>
-                    <div className='text-base flex flex-col justify-center min-h-[3.5rem] max-h-[3.5rem] line-clamp-2'>{item.title}</div>
+                <div className='p-2 pb-3 rounded-xl bg-[#f1f1f1]' key={item.id}>
+                    <div className='font-semibold text-base flex flex-col justify-center min-h-[3.5rem] max-h-[3.5rem] line-clamp-2'>{item.title}</div>
                     <div className='aspect-square w-[100%]'><img src={item.thumbnail} alt={item.title} /></div>
                     <div className='font-bold'>${item.price}</div>
                 </div>
             ))}
         </div>
-
     </div>
     </>
     }
