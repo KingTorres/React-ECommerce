@@ -43,11 +43,15 @@ const ItemList = () => {
 
   return (
     <>
-        <ul>
+        <div className='grid grid-cols-3 gap-3 md:grid-cols-5 border-1 border-red-500'>
             {data && data.map((item) => (
-                <li key={item.id}>{item.title}</li>
+                <div className='border-1 bg-[#0b2639]' key={item.id}>
+                    <div>{item.title}</div>
+                    <div><img src={item.thumbnail} alt={item.title} /></div>
+                    <div>{item.price}</div>
+                </div>
             ))}
-        </ul>
+        </div>
     </>
   )
 }
