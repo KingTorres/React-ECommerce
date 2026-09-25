@@ -4,3 +4,11 @@
   color: #ffff;
   border-radius: 1rem;
 }
+@utility no-scrollbar {
+  /* Firefox */
+  scrollbar-width: none;
+  /* Safari and Chrome */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
