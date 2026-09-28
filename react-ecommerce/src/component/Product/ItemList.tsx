@@ -1,22 +1,9 @@
 import React, { use, useEffect, useMemo, useState } from 'react'
+import type { DataProp } from '../../interfaces/Itemlist'
+import type { ItemProp } from '../../interfaces/Itemlist'
 
-
-interface DataProp {
-    id: number,
-    title: string,
-    description: string,
-    price: number,
-    discountPercentage: number,
-    thumbnail: string,
-    category: string
-}
-interface ItemProp {
-    previewTitle: string,
-    previewPrice: number,
-    previewThumbnail: string
-}
 const ItemList = () => {
-    const [data, setData] = useState<DataProp[] | null>()
+    const [data, setData] = useState<DataProp[] | null>(null)
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(true)
     const [category, setCategory] = useState('')
@@ -75,7 +62,7 @@ const ItemList = () => {
     {error ? <div>{error}</div>: loading ? <div>Loading....</div> :
         <>
         <div className='flex flex-col items-center align-center'>
-            <div className='sticky top-0 text-xl drop-shadow-sm w-[100%] text-[#000000] py-2 px-4 bg-[#ffffff] flex gap-3 justify-between overflow-y-auto min-h-12'>
+            <div className='sticky top-[-0.05rem] text-xl drop-shadow-sm w-[100%] text-[#000000] py-2 px-4 bg-[#ffffff] flex gap-3 justify-between overflow-y-auto min-h-12'>
                 <button className={`${category === '' ? 'active' : '' } flex justify-center py-1 px-5`} onClick={() => setCategory('')}>All</button>
                 {
                     CategoryButton?.map((item) => (
