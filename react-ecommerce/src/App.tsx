@@ -1,11 +1,18 @@
 import './App.css'
-import ItemList from './component/Product/ItemList'
-
+import Home from './component/Home/Home'
+import Navigation from './component/Navigation/Navigation'
 function App() {
 
   return (
     <>
-      <ItemList></ItemList>
+      <div className='flex flex-col h-dvh'>
+        <div className='h-fit'>
+          <Navigation></Navigation>
+        </div>
+        <div className='grow overflow-x-auto'>
+          <Home></Home>
+        </div>
+      </div>
     </>
   )
 }
