@@ -35,6 +35,7 @@ const ItemList = () => {
     const AddItem = () => {
         if(previewItem) {
             dispatch(addProductItem(previewItem))
+            setShowPreview(false)
         }
     }
   return (
