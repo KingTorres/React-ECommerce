@@ -8,7 +8,8 @@ export interface DataProp {
     category: string
 }
 export interface ItemProp {
-    previewTitle: string,
-    previewPrice: number,
-    previewThumbnail: string
+    id: number,
+    title: string,
+    price: number,
+    thumbnail: string
 }

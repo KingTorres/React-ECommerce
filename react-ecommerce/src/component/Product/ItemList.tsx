@@ -1,41 +1,15 @@
-import React, { use, useEffect, useMemo, useState } from 'react'
-import type { DataProp } from '../../interfaces/Itemlist'
+import React, { useMemo, useState } from 'react'
 import type { ItemProp } from '../../interfaces/Itemlist'
+import { useFetchData } from '../../utils/ProductData'
+import { addProductItem } from '../../features/cartSlice'
+import { useDispatch } from 'react-redux'
 
 const ItemList = () => {
-    const [data, setData] = useState<DataProp[] | null>(null)
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(true)
+    const {data, error, loading} = useFetchData()
     const [category, setCategory] = useState('')
     const [previewItem, setPreviewItem] = useState<ItemProp | null>()
     const [showPreview, setShowPreview] = useState(false)
-    
-    useEffect(() => {
-        const fetchData = async ()=> {
-            try {
-                const res = await fetch('https://dummyjson.com/products')
-                if(!res.ok) {
-                    throw new Error('Server Error')
-                }
-                const result = await res.json()
-                setData(result.products)
-            }
-            catch(err) {
-                if(err instanceof Error)
-                {
-                    setError(err.message)
-                }
-                else {
-                    setError('An Error Occured')
-                }
-            }
-            finally {
-                setLoading(false)
-            }
-        }
-        
-        fetchData()
-    },[])
+    const dispatch = useDispatch()
 
     const allItems = useMemo(() => {
         if(!data) return []
@@ -46,15 +20,21 @@ const ItemList = () => {
     const CategoryButton = ['beauty','fragrances','furniture','groceries']
     
     const itemClick = (item:number) => {
-        const seletedItem = data?.find((d) => d.id === item) 
-        console.log(seletedItem)
+        const seletedItem = data?.find((d) => d.id === item)
         if(seletedItem) {
             setPreviewItem({
-                previewTitle: seletedItem?.title,
-                previewPrice: seletedItem?.price,
-                previewThumbnail: seletedItem?.thumbnail
+                id: seletedItem?.id,
+                title: seletedItem?.title,
+                price: seletedItem?.price,
+                thumbnail: seletedItem?.thumbnail
             })
             setShowPreview(true)
+        }
+    }
+
+    const AddItem = () => {
+        if(previewItem) {
+            dispatch(addProductItem(previewItem))
         }
     }
   return (
@@ -86,13 +66,13 @@ const ItemList = () => {
             showPreview &&
             <div className='flex items-center align-center justify-center fixed top-0 z-1 backdrop-blur-md bg-[#dbdbdb00] h-full w-full'>
                 <div className='bg-[#f9f9f9] flex justify-center items-center py-2 px-4 rounded-xl flex flex-col w-fit drop-shadow-md'>
-                    <div className='text-xl max-w-70'>{previewItem?.previewTitle}</div>
+                    <div className='text-xl max-w-70'>{previewItem?.title}</div>
                     <div className='aspect-square w-50'>
-                        <img src={previewItem?.previewThumbnail} alt="previewItem?.previewTitle" />
+                        <img src={previewItem?.thumbnail} alt="previewItem?.previewTitle" />
                     </div>
-                    <div className='text-xl font-bold'>{previewItem?.previewPrice}</div>
+                    <div className='text-xl font-bold'>{previewItem?.price}</div>
                     <div className='w-full text-white my-3 flex flex-col gap-2 text-xl font-semibold'>
-                        <button className='py-0.5 rounded-xl bg-[#3b87f9] w-full'>ADD</button>
+                        <button className='py-0.5 rounded-xl bg-[#3b87f9] w-full' onClick={() => AddItem()}>ADD</button>
                         <button className='py-0.5 rounded-xl bg-[#ed3939] w-full' onClick={() => setShowPreview(false)}>CANCEL</button>
                     </div>
                 </div> 
