@@ -10,7 +10,7 @@ interface ProductProp {
 
 interface CartItem {
     id: number,
-    name: string,
+    title: string,
     price: number,
     thumbnail: string,
     quantity: number
@@ -33,7 +33,7 @@ const productSlice = createSlice({
             } else {
                 state.productItems.push({
                     id: action.payload.id,
-                    name: action.payload.title,
+                    title: action.payload.title,
                     price: action.payload.price,
                     thumbnail: action.payload.thumbnail,
                     quantity: 1
