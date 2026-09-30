@@ -16,6 +16,7 @@ function App() {
         <div className='grow overflow-x-auto'>
           <Routes>
             <Route path='/' element={<Home/>}></Route>
+            <Route path='/home' element={<Home/>}></Route>
             <Route path='/cart' element={<Cart/>}></Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
