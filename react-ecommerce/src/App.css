@@ -1,8 +1,8 @@
 @import "tailwindcss";
 .active {
-  background: rgb(1, 76, 236);
+  background: #56bf56;
   color: #ffff;
-  border-radius: 1rem;
+  border-radius: 0.5em;
 }
 * {
   scrollbar-width: none;

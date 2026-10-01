@@ -9,11 +9,11 @@ const Navigation = () => {
   const navigate = useNavigate()
   return (
     <div className='drop-shadow-sm sticky top-0 z-2 py-3 px-4 bg-[#ffffff] text-xl flex justify-between items-center h-fit'>
-      <div className='rounded-lg px-2 text-white bg-[#8fdbff]' onClick={() => navigate('/')}>
+      <div className='rounded-lg px-2 text-white bg-[#ffb37c]' onClick={() => navigate('/')}>
         &lt; Online Store
       </div>
       <div className='flex gap-3'>
-        <div className='flex text-[#000000] px-4 py-0.5 rounded-xl bg-[#dfdfdf]'>
+        <div className='flex text-[#ffb37c] px-4 py-0.5 rounded-xl'>
           <div>$</div>
           <div>1000</div>
         </div>

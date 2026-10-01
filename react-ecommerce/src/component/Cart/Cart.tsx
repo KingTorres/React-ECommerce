@@ -13,7 +13,7 @@ const Cart = () => {
     const navigate = useNavigate()
 
   return (
-    <div className='p-3 px-5 gap-2 h-full flex flex-col items-center align-center'>
+    <div className='p-3 px-5 gap-2 h-full flex flex-col items-center justify-center'>
         <div className='pt-3 pb-15 flex flex-col gap-5'>
             {ItemCart.length > 0 && 
             <>
@@ -37,8 +37,8 @@ const Cart = () => {
             </>}
             {ItemCart.length <= 0 &&                
                 <>
-                    <div className='text-2xl'>No Item</div>
-                    <button className='text-[#ffffff] bg-blue-600 py-1 px-2 rounded-lg' onClick={() => navigate('/')}>Go Back</button>
+                    <div className='text-4xl opacity-40 font-semibold my-5'>No Item</div>
+                    <button className='text-xl text-[#ffffff] bg-[#ffb37c] py-2 px-6 rounded-lg' onClick={() => navigate('/')}>Go Back</button>
                 </>
             }
         </div>

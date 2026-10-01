@@ -43,7 +43,7 @@ const ItemList = () => {
     {error ? <div>{error}</div>: loading ? <div>Loading....</div> :
         <>
         <div className='flex flex-col items-center align-center'>
-            <div className='sticky top-[-0.05rem] text-xl drop-shadow-sm w-[100%] text-[#000000] py-2 px-4 bg-[#ffffff] flex gap-3 justify-between overflow-y-auto min-h-12'>
+            <div className='sticky top-0 text-xl drop-shadow-sm w-[100%] py-2 px-4 bg-[#ffffff] flex gap-3 justify-between overflow-y-auto min-h-12'>
                 <button className={`${category === '' ? 'active' : '' } flex justify-center py-1 px-5`} onClick={() => setCategory('')}>All</button>
                 {
                     CategoryButton?.map((item) => (
@@ -55,8 +55,8 @@ const ItemList = () => {
             </div>
             <div className='text-[#000000] p-[2vw] py-[2vh] grid gap-3 grid-cols-2 md:grid-cols-4'>
                 {allItems && allItems.map((item) => (
-                    <div className='p-2 pb-3 rounded-xl bg-[#f1f1f1]' key={item.id} onClick={() => itemClick(item.id)}>
-                        <div className='font-semibold text-base flex flex-col justify-center min-h-[3.5rem] max-h-[3.5rem] line-clamp-2'>{item.title}</div>
+                    <div className='p-2 pb-3 rounded-xl bg-[#dff7ff]' key={item.id} onClick={() => itemClick(item.id)}>
+                        <div className='text-base flex flex-col justify-center min-h-[3.5rem] max-h-[3.5rem] line-clamp-2'>{item.title}</div>
                         <div className='aspect-square w-[100%]'><img src={item.thumbnail} alt={item.title} /></div>
                         <div className='font-bold'>${item.price}</div>
                     </div>
@@ -71,10 +71,10 @@ const ItemList = () => {
                     <div className='aspect-square w-50'>
                         <img src={previewItem?.thumbnail} alt="previewItem?.previewTitle" />
                     </div>
-                    <div className='text-xl font-bold'>{previewItem?.price}</div>
-                    <div className='w-full text-white my-3 flex flex-col gap-2 text-xl font-semibold'>
-                        <button className='py-0.5 rounded-xl bg-[#3b87f9] w-full' onClick={() => AddItem()}>ADD</button>
-                        <button className='py-0.5 rounded-xl bg-[#ed3939] w-full' onClick={() => setShowPreview(false)}>CANCEL</button>
+                    <div className='text-xl font-bold'>${previewItem?.price}</div>
+                    <div className='w-full text-white my-3 flex flex-col gap-2 text-xl'>
+                        <button className='py-1 rounded-lg bg-[#56bf56] w-full' onClick={() => AddItem()}>Add to Cart</button>
+                        <button className='py-1 rounded-lg bg-[#ffb37c] w-full' onClick={() => setShowPreview(false)}>Cancel</button>
                     </div>
                 </div> 
             </div>
