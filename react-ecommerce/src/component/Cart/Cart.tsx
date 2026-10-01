@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import type { RootState } from '../../stores/productStore'
+import type { RootState } from '../../store'
 import { addProductItem } from '../../features/cartSlice'
 import { decreaseQuantity } from '../../features/cartSlice'
 import { removeProductItem } from '../../features/cartSlice'

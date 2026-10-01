@@ -1,62 +1,43 @@
 import React, { use, useState } from 'react'
-
-const Login = () => {
-    const [error,setError] = useState('')
-    const [loading, setLoading]= useState(false)
-    const [user, setUser] = useState(null)
-
-    const handleSubmit = async (e:React.SubmitEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        setLoading(true)
-        setError('')
-        const formData = new FormData(e.currentTarget)
-        const username = formData.get('username')
-        const password = formData.get('password')
-        try {
-            const response = await fetch('https://dummyjson.com/auth/login', {
-                method: 'POST',
-                headers: {'Content-Type' : 'application/json'},
-                body: JSON.stringify({
-                    username: username,
-                    password: password,
-                    // expiresInMin: 30,
-                })
-            })
-            const data = await response.json();
-
-            if(!response.ok) {
-                throw new Error(data.message || 'Login Failed')
-            }
-            setUser(data)
-            console.log('Login successful', data)
-        } catch(err) {
-            if(err instanceof Error) {
-                setError(err.message)
-            } else {
-                setError('An unexpected error occured')
-            }
-        } finally {
-            setLoading(false)
-        }
-        
-        console.log(user)
-
-    }
+import { useLoginSubmit } from '../../utils/LoginData'
+import loginBG from "../../assets/img/loginBG.jpg"
+const Login = () => { 
+    const {
+        setUsername,
+        setPassword,
+        error,
+        loading,
+        user,
+        handleSubmit
+    }  = useLoginSubmit()
   return (
     <>
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name='username' placeholder='try emilys' />
-                <input type="password" name='password' placeholder='try emilyspass'/>
-                <button type='submit' disabled={loading}>
-                    {loading ? 'Logging In' : 'Login'}
-                </button>
-            </form>
+    <div className='flex flex-col items-center justify-center h-full'>
+        <div className='backdrop-blur-sm rounded-3xl bg-[#ffffff24] p-2 border-5 border-[#ffb37c]'>
+            <div className='w-[20em] rounded-2xl flex flex-col p-5 border-3 border-[#8ac9ff] bg-[#ffffff]'>
+                <div>Please Login</div>
+                <form className='flex flex-col gap-3 p-5 px-2 pb-0' onSubmit={handleSubmit}>
+                    <div className='flex items-center gap-2'>
+                        <div>User:</div>
+                        <input className='w-[100%] text-[#84ccff] placeholder-gray-300 font-bold bg-[#dff7ff] rounded-lg py-1 px-2' type="text" name='username' placeholder='try emilys' onChange={(e) => setUsername(e.target.value)} />
+                    </div>
+                    <div className='flex items-center gap-2'>
+                        <div>Pass:</div>
+                        <input className='w-[100%] text-[#84ccff] placeholder-gray-300 font-bold bg-[#dff7ff] rounded-lg py-1 px-2' type="password" name='password' placeholder='try emilyspass' onChange={(e) => setPassword(e.target.value)}/>
+                    </div>
+                    <button className='my-1 bg-[#56bf56] text-white font-semibold rounded-lg p-1' type='submit' disabled={loading}>
+                        {loading ? 'Verifying..' : 'Submit'}
+                    </button>
+                </form>
+            </div>
         </div>
-
+        <div className='pt-2 min-h-9 text-[#ff0000]'>{error && error}</div>
+        <div className='h-full w-full absolute z-[-1]'>
+            <img className='brightness-95 h-[100%] w-[100%] object-cover' src={loginBG} alt="Background" />
+        </div>
+    </div>
+        
     </>
-    
-    
   )
 }
 

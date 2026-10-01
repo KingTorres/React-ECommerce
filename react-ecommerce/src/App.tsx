@@ -4,15 +4,21 @@ import NotFound from './component/NotFound/NotFound'
 import Cart from './component/Cart/Cart'
 import Navigation from './component/Navigation/Navigation'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import type { RootState } from './store'
 function App() {
+  const userToken = useSelector((state: RootState) => state.userProfile.token)
 
   return (
     <>
     <BrowserRouter>
       <div className='flex flex-col h-dvh'>
-        <div className='h-fit'>
-          <Navigation></Navigation>
-        </div>
+        {
+          userToken &&
+          <div className='h-fit'>
+            <Navigation></Navigation>
+          </div>
+        }
         <div className='grow overflow-x-auto'>
           <Routes>
             <Route path='/' element={<Home/>}></Route>
