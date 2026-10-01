@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import type { RootState } from './store'
 function App() {
-  const userToken = useSelector((state: RootState) => state.userProfile.token)
+  const userToken = useSelector((state: RootState) => state.userProfile.accessToken)
 
   return (
     <>
