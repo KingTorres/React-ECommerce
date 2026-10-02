@@ -7,15 +7,29 @@ import { useDispatch } from 'react-redux'
 const ItemList = () => {
     const {data, error, loading} = useFetchData()
     const [category, setCategory] = useState('')
+    const [query, setQuery] = useState('')
     const [previewItem, setPreviewItem] = useState<ItemProp | null>()
     const [showPreview, setShowPreview] = useState(false)
     const dispatch = useDispatch()
 
     const allItems = useMemo(() => {
-        if(!data) return []
-        if(!category) return data
-        return data?.filter(a => String(a.category) === category)
-    },[data, category])
+        if (!data) return [];
+        if (category && category !== '') {
+            return data.filter(a => String(a.category) === category);
+        }
+        if (query) {
+            return data.filter(a => a.title.toLowerCase().includes(query.toLowerCase()));
+        }
+        return data;
+    },[data, category, query])
+    const handleCategoryChange = (e: string) => {
+        setCategory(e)
+        setQuery('')
+    }
+    const handleQueryChange = (e: string) => {
+        setCategory('')
+        setQuery(e)
+    }
 
     const CategoryButton = ['beauty','fragrances','furniture','groceries']
     
@@ -43,18 +57,20 @@ const ItemList = () => {
     {error ? <div>{error}</div>: loading ? <div>Loading....</div> :
         <>
         <div className='flex flex-col items-center align-center'>
-            <div className='w-[100%] sticky top-0 flex flex-col'>
-                <div className='text-sm drop-shadow-sm w-[100%] py-2 px-2 bg-[#ffffff] flex gap-2 justify-between overflow-y-auto min-h-12'>
-                    <button className={`${category === '' ? 'active' : '' } flex justify-center pt-1.5 px-3.5`} onClick={() => setCategory('')}>All</button>
+            <div className='drop-shadow-lg w-[100%] sticky top-0 flex flex-col items-center md:flex-row bg-[#ffffff]'>
+                <div className='w-[100%] mt-2 md:mt-0 py-2 px-2 md:w-[40%]'>
+                    <input className='border border-[#ffb37c] rounded-xl py-0.5 px-3 pr-5 w-full' type="text" placeholder='Find Item' value={query} onChange={(e) => handleQueryChange(e.target.value)}/>
+                </div>
+                <div className='text-sm w-[100%] py-2 px-2 flex gap-2 justify-between overflow-y-auto min-h-12  md:w-[60%]'>
+                    <button className={`${category === '' ? 'active' : '' } flex justify-center pt-1.5 px-3.5`} onClick={() => handleCategoryChange('')}>All</button>
                     {
                         CategoryButton?.map((item) => (
-                            <button className={`${category === item ? 'active' : '' } capitalize flex justify-center w-[100%] pt-1.5 px-3.5`} onClick={() => setCategory(item)} key={item}>
+                            <button className={`${category === item ? 'active' : '' } capitalize flex justify-center w-[100%] pt-1.5 px-3.5`} onClick={() => handleCategoryChange(item)} key={item}>
                                 {item}
                             </button>
                         ))
                     }
-                </div>
-                
+                </div>    
             </div>
             
             
