@@ -12,20 +12,22 @@ function App() {
   return (
     <>
     <BrowserRouter>
-      <div className='flex flex-col h-dvh'>
-        {
-          userToken &&
-          <div className='h-fit'>
-            <Navigation></Navigation>
+      <div className='w-dvw flex flex-col h-dvh'>
+        <div className='flex flex-col h-[100%] w-[100%] body-wrapper'>
+          {
+            userToken &&
+            <div className='h-fit'>
+              <Navigation></Navigation>
+            </div>
+          }
+          <div className='grow overflow-x-auto'>
+            <Routes>
+              <Route path='/' element={<Home/>}></Route>
+              <Route path='/home' element={<Home/>}></Route>
+              <Route path='/cart' element={<Cart/>}></Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </div>
-        }
-        <div className='grow overflow-x-auto'>
-          <Routes>
-            <Route path='/' element={<Home/>}></Route>
-            <Route path='/home' element={<Home/>}></Route>
-            <Route path='/cart' element={<Cart/>}></Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
         </div>
       </div>
     </BrowserRouter>
